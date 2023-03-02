@@ -1,0 +1,24 @@
+PODS:
+  - CombineCocoa (0.4.0)
+  - Kingfisher (7.3.2)
+  - SnapKit (5.6.0)
+
+DEPENDENCIES:
+  - CombineCocoa
+  - Kingfisher (~> 7.0)
+  - SnapKit (~> 5.6.0)
+
+SPEC REPOS:
+  trunk:
+    - CombineCocoa
+    - Kingfisher
+    - SnapKit
+
+SPEC CHECKSUMS:
+  CombineCocoa: 68a050228ce7c53c1c5ac2c57cccf92a7f5c5085
+  Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+
+PODFILE CHECKSUM: 4d4afe14db380b7bee7b0de6fa06624694a1e6a8
+
+COCOAPODS: 1.11.2

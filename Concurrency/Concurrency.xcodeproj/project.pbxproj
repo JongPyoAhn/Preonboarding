@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,7 @@
 		53690C6129B0A48600D08C49 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53690C6029B0A48600D08C49 /* ViewController.swift */; };
 		53690C6629B0A48700D08C49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53690C6529B0A48700D08C49 /* Assets.xcassets */; };
 		53690C6929B0A48700D08C49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53690C6729B0A48700D08C49 /* LaunchScreen.storyboard */; };
+		FF2BB1FC3DA880FAFE2B81EE /* Pods_Concurrency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FCAEDE7BAC3AEAE6DE72868 /* Pods_Concurrency.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		53690C6529B0A48700D08C49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53690C6829B0A48700D08C49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53690C6A29B0A48700D08C49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7FCAEDE7BAC3AEAE6DE72868 /* Pods_Concurrency.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Concurrency.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AEBBC508C7895E3F63DDD3A6 /* Pods-Concurrency.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Concurrency.release.xcconfig"; path = "Target Support Files/Pods-Concurrency/Pods-Concurrency.release.xcconfig"; sourceTree = "<group>"; };
+		FEF57955B6D4566F14B94C64 /* Pods-Concurrency.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Concurrency.debug.xcconfig"; path = "Target Support Files/Pods-Concurrency/Pods-Concurrency.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF2BB1FC3DA880FAFE2B81EE /* Pods_Concurrency.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CFB7AD1B9F6CE3EB1F37DDE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7FCAEDE7BAC3AEAE6DE72868 /* Pods_Concurrency.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4EC20BD5758A8C898853D386 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FEF57955B6D4566F14B94C64 /* Pods-Concurrency.debug.xcconfig */,
+				AEBBC508C7895E3F63DDD3A6 /* Pods-Concurrency.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		53690C5029B0A48500D08C49 = {
 			isa = PBXGroup;
 			children = (
 				53690C5B29B0A48600D08C49 /* Concurrency */,
 				53690C5A29B0A48600D08C49 /* Products */,
+				4EC20BD5758A8C898853D386 /* Pods */,
+				3CFB7AD1B9F6CE3EB1F37DDE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +96,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 53690C6D29B0A48700D08C49 /* Build configuration list for PBXNativeTarget "Concurrency" */;
 			buildPhases = (
+				D1DE0BFC42517DBE286648D9 /* [CP] Check Pods Manifest.lock */,
 				53690C5529B0A48500D08C49 /* Sources */,
 				53690C5629B0A48500D08C49 /* Frameworks */,
 				53690C5729B0A48500D08C49 /* Resources */,
+				DC841A976741971A01718B9F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -100,7 +127,7 @@
 				};
 			};
 			buildConfigurationList = 53690C5429B0A48500D08C49 /* Build configuration list for PBXProject "Concurrency" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -128,6 +155,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D1DE0BFC42517DBE286648D9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Concurrency-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC841A976741971A01718B9F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Concurrency/Pods-Concurrency-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Concurrency/Pods-Concurrency-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Concurrency/Pods-Concurrency-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		53690C5529B0A48500D08C49 /* Sources */ = {
@@ -204,7 +273,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -258,7 +327,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -270,6 +339,7 @@
 		};
 		53690C6E29B0A48700D08C49 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FEF57955B6D4566F14B94C64 /* Pods-Concurrency.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -298,6 +368,7 @@
 		};
 		53690C6F29B0A48700D08C49 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEBBC508C7895E3F63DDD3A6 /* Pods-Concurrency.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
