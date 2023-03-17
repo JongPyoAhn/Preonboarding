@@ -5,6 +5,7 @@
 //  Created by 안종표 on 2023/03/02.
 //
 import Combine
+import Dispatch
 import UIKit
 
 import CombineCocoa
@@ -218,7 +219,14 @@ final class ViewController: UIViewController {
         
         return button
     }()
-    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        print("viewWillLayoutSubviews")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        print("viewWillAppear")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -355,7 +363,6 @@ final class ViewController: UIViewController {
                         self?.fourImageView.image = image
                     }
                     .store(in: &self.subscription)
-
             }
             .store(in: &subscription)
         
