@@ -8,8 +8,13 @@
 import UIKit
 
 final class ViewController: UIViewController {
-    private lazy var lusterStackView: LusterView = {
-        var stackView = LusterView()
+    
+    private lazy var verticalStackView: UIStackView = {
+        var stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -32,11 +37,19 @@ final class ViewController: UIViewController {
 
     func configureUI(){
         self.view.backgroundColor = .white
-        self.lusterStackView.addArrangedSubview(loadAllButton)
-        self.view.addSubview(lusterStackView)
-        self.lusterStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
-        self.lusterStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        self.lusterStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        for _ in 0..<5{
+            lazy var lusterStackView: LusterView = {
+                let stackView = LusterView()
+                stackView.translatesAutoresizingMaskIntoConstraints = false
+                return stackView
+            }()
+            self.verticalStackView.addArrangedSubview(lusterStackView)
+        }
+        self.verticalStackView.addArrangedSubview(loadAllButton)
+        self.view.addSubview(self.verticalStackView)
+        self.verticalStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
+        self.verticalStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        self.verticalStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
 
     }
     
