@@ -37,9 +37,9 @@ final class ViewController: UIViewController {
 
     func configureUI(){
         self.view.backgroundColor = .white
-        for _ in 0..<5{
+        for i in 0..<5{
             lazy var lusterStackView: LusterView = {
-                let stackView = LusterView()
+                let stackView = LusterView(tagNum: i)
                 stackView.translatesAutoresizingMaskIntoConstraints = false
                 return stackView
             }()
@@ -50,10 +50,7 @@ final class ViewController: UIViewController {
         self.verticalStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         self.verticalStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         self.verticalStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
-
     }
-    
-    
 }
 
 
