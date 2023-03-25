@@ -24,6 +24,7 @@ fileprivate enum ImageURL {
 
 final class LusterView: UIStackView {
     private var tagNum: Int?
+    private var task: URLSessionDataTask!
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
@@ -54,10 +55,6 @@ final class LusterView: UIStackView {
         
         guard let tagNum = self.tagNum else {return button}
         let action = UIAction { [weak self] _ in
-            guard button.isSelected else{
-
-                return
-            }
             self?.fetchImage(tagNum) }
         button.addAction(action, for: .touchUpInside)
         return button
@@ -75,7 +72,7 @@ final class LusterView: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func configureUI(){
         self.axis = .horizontal
         self.alignment = .center
@@ -91,8 +88,28 @@ final class LusterView: UIStackView {
     }
     
     func fetchImage(_ tagNum: Int){
-        //여기서 tagNum활용해서 image바꿔주면 될듯?
+        let url = ImageURL[tagNum]
+        let request = URLRequest(url: url)
+        task = URLSession.shared.dataTask(with: request) { data, resopnse, error in
+            if let error = error{
+                fatalError(error.localizedDescription)
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                DispatchQueue.main.async {
+                    self.imageView.image = .init(systemName: "xmark")
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                self.imageView.image = image
+                self.button.isSelected = false
+            }
+        }
         
         
+        
+        task.resume()
     }
 }

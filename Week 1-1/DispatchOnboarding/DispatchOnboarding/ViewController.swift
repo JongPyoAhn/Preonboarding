@@ -8,7 +8,6 @@
 import UIKit
 
 final class ViewController: UIViewController {
-    
     private lazy var verticalStackView: UIStackView = {
         var stackView = UIStackView()
         stackView.axis = .vertical
@@ -45,6 +44,14 @@ final class ViewController: UIViewController {
             }()
             self.verticalStackView.addArrangedSubview(lusterStackView)
         }
+        var count = 0
+        verticalStackView.subviews.forEach { lusterView in
+            guard let lusterView = lusterView as? LusterView else{return}
+            lusterView.fetchImage(count)
+            count += 1
+        }
+        
+        
         self.verticalStackView.addArrangedSubview(loadAllButton)
         self.view.addSubview(self.verticalStackView)
         self.verticalStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
