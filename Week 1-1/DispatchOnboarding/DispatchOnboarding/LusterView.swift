@@ -55,6 +55,11 @@ final class LusterView: UIStackView {
         
         guard let tagNum = self.tagNum else {return button}
         let action = UIAction { [weak self] _ in
+            button.isSelected = !button.isSelected
+            guard button.isSelected else{
+                self?.task.cancel()
+                return
+            }
             self?.fetchImage(tagNum) }
         button.addAction(action, for: .touchUpInside)
         return button
@@ -92,7 +97,10 @@ final class LusterView: UIStackView {
         let request = URLRequest(url: url)
         task = URLSession.shared.dataTask(with: request) { data, resopnse, error in
             if let error = error{
-                fatalError(error.localizedDescription)
+                guard error.localizedDescription == "cancelled" else{
+                    fatalError(error.localizedDescription)
+                }
+                
             }
             
             guard let data = data, let image = UIImage(data: data) else {
@@ -107,9 +115,6 @@ final class LusterView: UIStackView {
                 self.button.isSelected = false
             }
         }
-        
-        
-        
         task.resume()
     }
 }

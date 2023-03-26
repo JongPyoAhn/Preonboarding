@@ -26,6 +26,10 @@ final class ViewController: UIViewController {
         button.setTitle("Cancel", for: .selected)
         button.titleLabel?.textAlignment = .center
         button.translatesAutoresizingMaskIntoConstraints = false
+        let action = UIAction {[weak self] _ in
+            self?.fetchAllImages()
+        }
+        button.addAction(action, for: .touchUpInside)
         return button
     }()
     
@@ -44,19 +48,21 @@ final class ViewController: UIViewController {
             }()
             self.verticalStackView.addArrangedSubview(lusterStackView)
         }
-        var count = 0
-        verticalStackView.subviews.forEach { lusterView in
-            guard let lusterView = lusterView as? LusterView else{return}
-            lusterView.fetchImage(count)
-            count += 1
-        }
-        
         
         self.verticalStackView.addArrangedSubview(loadAllButton)
         self.view.addSubview(self.verticalStackView)
         self.verticalStackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         self.verticalStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         self.verticalStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+    }
+    
+    func fetchAllImages(){
+        var count = 0
+        self.verticalStackView.subviews.forEach { lusterView in
+            guard let lusterView = lusterView as? LusterView else{return}
+            lusterView.fetchImage(count)
+            count += 1
+        }
     }
 }
 
