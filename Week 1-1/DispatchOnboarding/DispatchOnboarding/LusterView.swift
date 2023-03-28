@@ -25,6 +25,8 @@ fileprivate enum ImageURL {
 final class LusterView: UIStackView {
     private var tagNum: Int?
     private var task: URLSessionDataTask!
+    private var observation: NSKeyValueObservation!
+    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "photo")
@@ -78,6 +80,11 @@ final class LusterView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit{
+        observation.invalidate()
+        observation = nil
+    }
+    
     func configureUI(){
         self.axis = .horizontal
         self.alignment = .center
@@ -115,6 +122,13 @@ final class LusterView: UIStackView {
                 self.button.isSelected = false
             }
         }
+        
+        observation = task.progress.observe(\.fractionCompleted, options: [.new], changeHandler: { progress, change in
+            DispatchQueue.main.async {
+                self.progressView.progress = Float(progress.fractionCompleted)
+            }
+        })
+        
         task.resume()
     }
 }
