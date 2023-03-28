@@ -26,6 +26,7 @@ final class LusterView: UIStackView {
     private var tagNum: Int?
     private var task: URLSessionDataTask!
     private var observation: NSKeyValueObservation!
+    private var workItem: DispatchWorkItem!
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -57,10 +58,12 @@ final class LusterView: UIStackView {
         
         guard let tagNum = self.tagNum else {return button}
         let action = UIAction { [weak self] _ in
-            self?.reset()
+            
             button.isSelected = !button.isSelected
+            
             guard button.isSelected else{
-                self?.task.cancel()
+//                self?.task.cancel()
+                self?.workItem.cancel()
                 return
             }
             self?.fetchImage(tagNum) }
@@ -101,39 +104,59 @@ final class LusterView: UIStackView {
     }
     
     func fetchImage(_ tagNum: Int){
-        let url = ImageURL[tagNum]
-        let request = URLRequest(url: url)
-        task = URLSession.shared.dataTask(with: request) { data, resopnse, error in
-            if let error = error{
-                guard error.localizedDescription == "cancelled" else{
-                    fatalError(error.localizedDescription)
-                }
-                
-            }
-            
-            guard let data = data, let image = UIImage(data: data) else {
-                DispatchQueue.main.async {
-                    self.imageView.image = .init(systemName: "xmark")
-                }
+        workItem = DispatchWorkItem{
+            guard self.workItem.isCancelled == false else {
+                self.reset()
                 return
             }
+            let url = ImageURL[tagNum]
+            let request = URLRequest(url: url)
+            self.task = URLSession.shared.dataTask(with: request) { data, resopnse, error in
+                if let error = error{
+                    guard error.localizedDescription == "cancelled" else{
+                        fatalError(error.localizedDescription)
+                    }
+                    
+                }
+                
+                guard self.workItem.isCancelled == false else {
+                    self.reset()
+                    return
+                }
+                
+                guard let data = data, let image = UIImage(data: data) else {
+                    DispatchQueue.main.async {
+                        self.imageView.image = .init(systemName: "xmark")
+                    }
+                    return
+                }
+                
+                guard self.workItem.isCancelled == false else {
+                    self.reset()
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                    self.button.isSelected = false
+                }
+            }
             
-            DispatchQueue.main.async {
-                self.imageView.image = image
-                self.button.isSelected = false
-            }
+            self.observation = self.task.progress.observe(\.fractionCompleted, options: [.new], changeHandler: { progress, change in
+                DispatchQueue.main.async {
+                    self.progressView.progress = Float(progress.fractionCompleted)
+                }
+            })
+            
+            self.task.resume()
         }
-        
-        observation = task.progress.observe(\.fractionCompleted, options: [.new], changeHandler: { progress, change in
-            DispatchQueue.main.async {
-                self.progressView.progress = Float(progress.fractionCompleted)
-            }
-        })
-        
-        task.resume()
+        workItem.perform()
     }
     func reset(){
-        self.imageView.image = .init(systemName: "photo")
-        self.progressView.progress = 0
+        DispatchQueue.main.async {
+            self.imageView.image = .init(systemName: "photo")
+            self.progressView.progress = 0
+        }
+        
     }
 }
