@@ -38,7 +38,7 @@ final class LusterView: UIStackView {
     
     private lazy var progressView: UIProgressView = {
         let progressView = UIProgressView()
-        progressView.progress = 0.5
+        progressView.progress = 0
         progressView.translatesAutoresizingMaskIntoConstraints = false
         return progressView
     }()
@@ -57,6 +57,7 @@ final class LusterView: UIStackView {
         
         guard let tagNum = self.tagNum else {return button}
         let action = UIAction { [weak self] _ in
+            self?.reset()
             button.isSelected = !button.isSelected
             guard button.isSelected else{
                 self?.task.cancel()
@@ -130,5 +131,9 @@ final class LusterView: UIStackView {
         })
         
         task.resume()
+    }
+    func reset(){
+        self.imageView.image = .init(systemName: "photo")
+        self.progressView.progress = 0
     }
 }

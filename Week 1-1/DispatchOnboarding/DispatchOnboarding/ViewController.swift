@@ -60,6 +60,7 @@ final class ViewController: UIViewController {
         var count = 0
         self.verticalStackView.subviews.forEach { lusterView in
             guard let lusterView = lusterView as? LusterView else{return}
+            lusterView.reset()
             lusterView.fetchImage(count)
             count += 1
         }
